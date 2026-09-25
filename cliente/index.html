@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat foda</title>
+</head>
+<body>
+    <script src="main.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <div class="barra-topo">
+    <span class="titulo">Meu Chat</span>
+    <button class="botao-fechar" onclick="window.close()">X</button>
+  </div>
+    
+  <div class="area-mensagens">
+    <p>O chat vai aparecer aqui!</p>
+    <p>Pressione F8 para travar/destravar o clique.</p>
+  </div>
+  
+    <div id="mensagens"></div>
+    <script>
+        // conecta no servidor python
+        const ws = new WebSocket('ws://localhost:8765');
+        
+        ws.onopen = () => {
+            ws.send('oi do electron, servidor!');
+        };
+        
+        ws.onmessage = (evento) => {
+            // quando recebe resposta, escreve na tela
+            document.getElementById('mensagens').innerHTML += '<p>' + evento.data + '</p>';
+        };
+    </script>
+</body>
+</html>
